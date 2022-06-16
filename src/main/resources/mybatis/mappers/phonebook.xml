@@ -4,10 +4,21 @@
 
 <mapper namespace="phonebook">
 
-	<select id="selectList" resultType="com.javaex.vo.PersonVo">
+	 <resultMap id="resultMapPersonVo" type="com.javaex.vo.PersonVo">
+		<result column="person_id" property="personId" />
+		<result column="name" property="name" />
+		<result column="hp" property="hp" />
+		<result column="company" property="company" />
+	</resultMap> 
+
+
+
+
+	<!-- 전체리스트 가져오기 -->
+	<select id="selectList" resultType="resultMapPersonVo">
 		<![CDATA[ 
 				
-				select	person_id personId, 
+				select	person_id, 
 						name,
 						hp,
 						company
@@ -16,7 +27,8 @@
 		]]>
 	</select>
 
-	<insert id="personInsert" parameterType="com.javaex.vo.PersonVo">
+	<!-- 전화번호 저장 -->
+	<insert id="personInsert" parameterType="PersonVo">
 		<![CDATA[
 				
 				insert into person
@@ -24,7 +36,8 @@
 		
 		]]>
 	</insert>
-	
+
+	<!-- 전화번호 삭제 -->
 	<delete id="personDelete" parameterType="com.javaex.vo.PersonVo">
 		<![CDATA[
 				
@@ -33,7 +46,8 @@
 		
 		]]>
 	</delete>
-	
+
+	<!-- 전화번호 수정 -->
 	<update id="personUpdate" parameterType="com.javaex.vo.PersonVo">
 		<![CDATA[
 				

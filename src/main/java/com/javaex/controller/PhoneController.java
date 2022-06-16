@@ -61,12 +61,6 @@ public class PhoneController {
 		return "redirect:/list";
 	}
 	
-	
-	
-	
-	
-	
-		
 	//전화번호 삭제
 	@RequestMapping(value="/delete", method = {RequestMethod.GET, RequestMethod.POST})
 	public String delete(@RequestParam("no") int no) {
@@ -93,9 +87,6 @@ public class PhoneController {
 		return "updateForm";
 	}
 	
-	
-	
-	
 	//전화번호 수정	  
 	@RequestMapping(value="/update", method= {RequestMethod.GET, RequestMethod.POST}) 
 	public String update(PersonVo personVo) {
@@ -106,13 +97,5 @@ public class PhoneController {
 				
 	    return "redirect:/list"; 
 	}
-	
-	
-	
-	
-}	  
-	  
-	  
-	  
-	  
 
+}	  
