@@ -49,17 +49,29 @@ public class PhoneController {
 		return "writeForm";
 	}
 	
-	//전화번호 등록
-	@RequestMapping(value="/write", method= {RequestMethod.GET, RequestMethod.POST})
-	public String write(@ModelAttribute PersonVo personVo) {
-		System.out.println("PhoneController>write()");
-		
-		//Service를 통해서 저장한다.
-		int count = phoneService.personInsert(personVo);
-		
-		//리다이렉트
-		return "redirect:/list";
-	}
+	/*
+	 * //전화번호 등록
+	 * 
+	 * @RequestMapping(value="/write", method= {RequestMethod.GET,
+	 * RequestMethod.POST}) public String write(@ModelAttribute PersonVo personVo) {
+	 * System.out.println("PhoneController>write()");
+	 * 
+	 * //Service를 통해서 저장한다. int count = phoneService.personInsert(personVo);
+	 * 
+	 * //리다이렉트 return "redirect:/list"; }
+	 */
+	
+	//전화번호 등록2
+		@RequestMapping(value="/write", method= {RequestMethod.GET, RequestMethod.POST})
+		public String write(@ModelAttribute PersonVo personVo) {
+			System.out.println("PhoneController>write()");
+			
+			//Service를 통해서 저장한다.
+			phoneService.personInsert2();
+			
+			//리다이렉트
+			return "redirect:/list";
+		}
 	
 	//전화번호 삭제
 	@RequestMapping(value="/delete", method = {RequestMethod.GET, RequestMethod.POST})

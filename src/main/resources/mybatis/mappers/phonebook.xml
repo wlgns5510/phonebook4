@@ -4,21 +4,21 @@
 
 <mapper namespace="phonebook">
 
-	 <resultMap id="resultMapPersonVo" type="com.javaex.vo.PersonVo">
-		<result column="person_id" property="personId" />
+	<resultMap id="resultMapPersonVo" type="com.javaex.vo.PersonVo">
+		<result column="person_id" property="personId " />
 		<result column="name" property="name" />
 		<result column="hp" property="hp" />
 		<result column="company" property="company" />
-	</resultMap> 
+	</resultMap>
 
 
 
 
 	<!-- 전체리스트 가져오기 -->
-	<select id="selectList" resultType="resultMapPersonVo">
+	<select id="selectList" resultType="personVo">
 		<![CDATA[ 
 				
-				select	person_id, 
+				select	person_id personId, 
 						name,
 						hp,
 						company
@@ -28,7 +28,17 @@
 	</select>
 
 	<!-- 전화번호 저장 -->
-	<insert id="personInsert" parameterType="PersonVo">
+	<insert id="personInsert" parameterType="PersonVo">	<!--  #{}을 getter로 받음 -->
+		<![CDATA[
+				
+				insert into person
+				values(seq_person_id.nextval, #{name}, #{hp}, #{company})
+		
+		]]>
+	</insert>
+	
+	<!-- 전화번호 저장(map) -->
+	<insert id="personInsert2" parameterType="map"> <!-- Dao에 있는 key값을 받음 -->
 		<![CDATA[
 				
 				insert into person
@@ -38,7 +48,7 @@
 	</insert>
 
 	<!-- 전화번호 삭제 -->
-	<delete id="personDelete" parameterType="com.javaex.vo.PersonVo">
+	<delete id="personDelete" parameterType="PersonVo">
 		<![CDATA[
 				
 				 delete from person
@@ -47,8 +57,35 @@
 		]]>
 	</delete>
 
+	<!-- 한사람 불러오기 -->
+	<select id="getPerson" parameterType="int" resultType="PersonVo">
+		<![CDATA[
+				
+				select	person_id personId,
+						name,
+						hp,
+						company
+				from person
+				where person_id = #{personId}
+		]]>
+	</select>
+	
+	<!-- <한사람 불러오기(map) -->
+	<select id="getPerson2" parameterType="int" resultType="map">
+		<![CDATA[
+				
+				select	person_id personId,
+						name,
+						hp,
+						company
+				from person
+				where person_id = #{personId}
+		]]>
+	</select>
+	
+
 	<!-- 전화번호 수정 -->
-	<update id="personUpdate" parameterType="com.javaex.vo.PersonVo">
+	<update id="personUpdate" parameterType="PersonVo">
 		<![CDATA[
 				
 				update person
@@ -58,5 +95,9 @@
 				where person_id = #{personId}
 		]]>
 	</update>
+
+
+
+
 
 </mapper>
